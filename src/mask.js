@@ -570,13 +570,13 @@ angular.module('ui.mask', [])
                                         selectionLenOld = oldSelectionLength || 0,
                                         isSelected = getSelectionLength(this) > 0,
                                         wasSelected = selectionLenOld > 0,
+                                        isKeyLeftArrow = eventWhich === 37,
                                         // Case: Typing a character to overwrite a selection
-                                        isAddition = (val.length > valOld.length) || (selectionLenOld && val.length > valOld.length - selectionLenOld),
+                                        isAddition = !isKeyLeftArrow && ((val.length > valOld.length) || (selectionLenOld && val.length > valOld.length - selectionLenOld)),
                                         // Case: Delete and backspace behave identically on a selection
                                         isDeletion = (val.length < valOld.length) || (selectionLenOld && val.length === valOld.length - selectionLenOld),
                                         isSelection = (eventWhich >= 37 && eventWhich <= 40) && e.shiftKey, // Arrow key codes
 
-                                        isKeyLeftArrow = eventWhich === 37,
                                         // Necessary due to "input" event not providing a key code
                                         isKeyBackspace = eventWhich === 8 || (eventType !== 'keyup' && isDeletion && (caretPosDelta === -1)),
                                         isKeyDelete = eventWhich === 46 || (eventType !== 'keyup' && isDeletion && (caretPosDelta === 0) && !wasSelected),
